@@ -12,14 +12,14 @@ type MaxLength struct {
 }
 
 // Valid checks whether provided v is having at most Max characters. If v is not string, Valid will panic.
-func (m MaxLength) Valid(v interface{}) error {
+func (l MaxLength) Valid(v interface{}) error {
 	val, ok := v.(string)
 	if !ok {
 		panic(fmt.Sprintf("wrong data type, expected int, got: %T", v))
 	}
 
-	if utf8.RuneCountInString(val) > m.Max {
-		return m.Err
+	if utf8.RuneCountInString(val) > l.Max {
+		return l.Err
 	}
 
 	return nil

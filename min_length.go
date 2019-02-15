@@ -12,14 +12,14 @@ type MinLength struct {
 }
 
 // Valid checks whether provided v is having at least Min characters. If v is not string, Valid will panic.
-func (m MinLength) Valid(v interface{}) error {
+func (l MinLength) Valid(v interface{}) error {
 	val, ok := v.(string)
 	if !ok {
 		panic(fmt.Sprintf("wrong data type, expected int, got: %T", v))
 	}
 
-	if utf8.RuneCountInString(val) < m.Min {
-		return m.Err
+	if utf8.RuneCountInString(val) < l.Min {
+		return l.Err
 	}
 
 	return nil
