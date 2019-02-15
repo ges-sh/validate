@@ -1,3 +1,5 @@
+// Package validate allows user to validate Go structs using map of validators.
+// Validating produces nice map of errors which can then be passed to for example frontend in the JSON format.
 package validate
 
 import (
