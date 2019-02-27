@@ -3,6 +3,7 @@
 package validate
 
 import (
+	"encoding/json"
 	"reflect"
 )
 
@@ -16,6 +17,19 @@ type Validators map[string][]Validator
 
 // Errors represents list of errors within validated object
 type Errors map[string][]error
+
+// MarshalJSON implements json.MarshalJSON. Basic error type is not serialized by JSON by default
+func (e Errors) MarshalJSON() ([]byte, error) {
+	stringified := map[string][]string{}
+	for field, errors := range e {
+		stringified[field] = make([]string, len(errors))
+		for i, err := range errors {
+			stringified[field][i] = err.Error()
+		}
+	}
+
+	return json.Marshal(stringified)
+}
 
 // Validate checks whether v is valid by checking it with every provided Validator.
 // If provided v is not a struct, it'll return empty errors map. If v contains
