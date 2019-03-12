@@ -46,6 +46,7 @@ func (v Validators) iterateFields(s interface{}, errors Errors) {
 	switch valueOf.Kind() {
 	case reflect.Ptr:
 		valueOf = ptr(valueOf)
+	case reflect.Struct: // do nothing
 	default:
 		return
 	}
