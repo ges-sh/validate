@@ -43,7 +43,10 @@ func (v Validators) Validate(s interface{}) Errors {
 
 func (v Validators) iterateFields(s interface{}, errors Errors) {
 	valueOf := reflect.ValueOf(s)
-	if valueOf.Kind() != reflect.Struct {
+	switch valueOf.Kind() {
+	case reflect.Ptr:
+		valueOf = ptr(valueOf)
+	default:
 		return
 	}
 
@@ -61,6 +64,16 @@ func (v Validators) iterateFields(s interface{}, errors Errors) {
 
 		v.validateField(tag, val, errors)
 	}
+}
+
+// ptr recursively tries to find the type v is pointing to.
+// If v is not a reflect.Ptr, ptr will panic.
+func ptr(v reflect.Value) reflect.Value {
+	v = v.Elem()
+	if v.Kind() == reflect.Ptr {
+		return ptr(v)
+	}
+	return v
 }
 
 func (v Validators) validateField(tag string, val reflect.Value, errors Errors) {
