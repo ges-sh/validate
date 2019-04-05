@@ -15,7 +15,7 @@ type MinLength struct {
 func (l MinLength) Valid(v interface{}) error {
 	val, ok := v.(string)
 	if !ok {
-		panic(fmt.Sprintf("wrong data type, expected int, got: %T", v))
+		panic(fmt.Sprintf("wrong data type, expected string, got: %T", v))
 	}
 
 	if utf8.RuneCountInString(val) < l.Min {

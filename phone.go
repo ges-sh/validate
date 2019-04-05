@@ -18,7 +18,7 @@ var E164Regexp = regexp.MustCompile(`^\+[1-9]\d{1,14}$`)
 func (p Phone) Valid(v interface{}) error {
 	val, ok := v.(string)
 	if !ok {
-		panic(fmt.Sprintf("wront data type, expected int, got: %T", v))
+		panic(fmt.Sprintf("wront data type, expected string, got: %T", v))
 	}
 
 	var valid bool

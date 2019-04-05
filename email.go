@@ -23,7 +23,7 @@ var EmailRegexp = regexp.MustCompile(
 func (e Email) Valid(v interface{}) error {
 	val, ok := v.(string)
 	if !ok {
-		panic(fmt.Sprintf("wrong data type, expected bool, got: %T", v))
+		panic(fmt.Sprintf("wrong data type, expected string, got: %T", v))
 	}
 
 	var valid bool
